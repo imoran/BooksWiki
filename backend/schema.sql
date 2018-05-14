@@ -104,3 +104,95 @@ Each is searching--Lyra for the meaning of Dark Matter, Will for his missing fat
     'https://d2arxad8u2l0g7.cloudfront.net/books/1469704347l/17470674.jpg',
     2000
   );
+
+
+
+
+
+
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE users
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  picture VARCHAR(255)
+);
+
+INSERT INTO
+  users (name, email, password)
+VALUES
+  (
+    'Isis',
+    'isis@isis.com',
+    '123456789'
+  ),
+  (
+    'Majid',
+    'majid@majid.com',
+    '1234567'
+  );
+
+
+
+
+
+
+
+DROP TABLE IF EXISTS genres;
+CREATE TABLE genres
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+  genres (name)
+VALUES
+  ('fiction'), ('non fiction'), ('drama'), ('action');
+
+DROP TABLE IF EXISTS book_genre;
+CREATE TABLE book_genre
+(
+  genre_id INTEGER,
+  book_id INTEGER
+);
+
+INSERT INTO
+  book_genre (book_id, genre_id)
+VALUES
+  (1, 1), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
+
+
+
+
+
+
+
+
+DROP TABLE IF EXISTS authors;
+CREATE TABLE authors
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO
+  authors (name)
+VALUES
+  ('Kurt Vonnegut'), ('R.L Stine'), ('George Orwell'), ('Anthony Robbins');
+
+
+DROP TABLE IF EXISTS book_author;
+CREATE TABLE book_author
+(
+  author_id INTEGER,
+  book_id INTEGER
+);
+
+INSERT INTO
+  book_author (book_id, author_id)
+VALUES
+  (1, 1), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
