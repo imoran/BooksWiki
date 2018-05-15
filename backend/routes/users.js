@@ -1,8 +1,8 @@
-const db = require('../database/index')
+const { queries, actions } = require('../database');
 
 const users = {
   get(req, res) {
-    db.getUser(req.params.id)
+    queries.getUser(req.params.id)
     .then(user => {
       res.status = 200;
       res.json(user);
@@ -10,7 +10,7 @@ const users = {
   },
 
   update(req, res) {
-    db.updateUser(req.body, req.params.id)
+    actions.updateUser(req.body, req.params.id)
     .then(user => {
       res.status = 200;
       res.json(user);
@@ -21,7 +21,7 @@ const users = {
   },
 
   create(req, res) {
-    db.createUser(req.body)
+    actions.createUser(req.body)
     .then(user => {
       res.status = 200;
       res.json(user);
