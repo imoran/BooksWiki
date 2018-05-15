@@ -131,15 +131,18 @@ VALUES
   );
 
 
+
+
+
 DROP TABLE IF EXISTS genres;
 CREATE TABLE genres
 (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  genre VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
-  genres (name)
+  genres (genre)
 VALUES
   ('fiction'), ('non fiction'), ('drama'), ('action');
 
@@ -154,18 +157,18 @@ CREATE TABLE book_genre
 INSERT INTO
   book_genre (book_id, genre_id)
 VALUES
-  (1, 1), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
+  (1, 1), (1, 2), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
 
 
 DROP TABLE IF EXISTS authors;
 CREATE TABLE authors
 (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL
+  author VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
-  authors (name)
+  authors (author)
 VALUES
   ('Kurt Vonnegut'), ('R.L Stine'), ('George Orwell'), ('Anthony Robbins');
 
@@ -180,7 +183,7 @@ CREATE TABLE book_author
 INSERT INTO
   book_author (book_id, author_id)
 VALUES
-  (1, 1), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
+  (1, 1), (1, 2), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
 
 
 DROP TABLE IF EXISTS ratings;
@@ -194,7 +197,9 @@ CREATE TABLE ratings
 INSERT INTO
   ratings (rating, user_id, book_id)
 VALUES
-  (5, 1, 1), (4, 2, 2), (2, 1, 3), (1, 2, 4), (3, 1, 5), (5, 2, 6), (5, 1, 7), (2, 2, 8), (4, 2, 9), (5, 1, 10);
+  (5, 1, 1), (4, 2, 1), (4, 2, 2), (2, 1, 3), (1, 2, 4),
+  (3, 1, 5), (5, 2, 6), (5, 1, 7), (2, 2, 8),
+  (4, 2, 9), (5, 1, 10);
 
 
 DROP TABLE IF EXISTS comments;

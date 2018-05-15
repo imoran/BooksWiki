@@ -6,8 +6,8 @@ module.exports = {
   getAllBooks() {
     const sql = `
     SELECT b.id, b.title, b.description,
-  		   a.name AS author, b.year, g.name AS genre,
-  		   b.img_url, r.rating
+  		   a.id AS author_id, a.name AS author, b.year, g.name AS genre,
+  		   g.id AS genre_id, b.img_url, r.rating
       FROM books AS b
       JOIN book_genre AS bg
         ON bg.book_id = b.id
@@ -23,7 +23,7 @@ module.exports = {
     return pg.any(sql);
   },
 
-  createBook({title, year, description, img_url}) {
+  createBook({ title, year, description, img_url }) {
     const sql = `
       INSERT INTO
         books (title, year, description, img_url)
@@ -37,24 +37,35 @@ module.exports = {
 
   getBook(id) {
     const sql =  `
-    SELECT b.id, b.title, b.description,
-  		   a.name AS author, b.year, g.name AS genre,
-  		   b.img_url, r.rating, c.comment
+      SELECT
+        b.id, b.title, b.description, b.year, b.img_url,
+        c.comment,
+        (
+          SELECT round(AVG(rating), 1)
+          FROM ratings
+          WHERE b.id = book_id
+        ) AS rating,
+        (
+          SELECT array_agg(author)
+          FROM authors
+          JOIN book_author AS ba
+            ON ba.book_id = b.id
+          WHERE
+            id = ba.author_id
+        ) AS author,
+        (
+          SELECT array_agg(genre)
+          FROM genres
+          JOIN book_genre AS bg
+            ON bg.book_id = b.id
+          WHERE
+            id = bg.genre_id
+        ) AS genre
       FROM books AS b
-      JOIN book_genre AS bg
-        ON bg.book_id = b.id
-      JOIN genres AS g
-        ON bg.genre_id = g.id
-      JOIN book_author AS ba
-      ON b.id = ba.book_id
-      JOIN authors AS a
-        ON a.id = ba.author_id
-      JOIN ratings AS r
-        ON b.id = r.book_id
       JOIN comments AS c
         ON b.id = c.book_id
       WHERE
-        b.id = $1;
+        b.id = 1;
     `
     return pg.one(sql, [id]);
   },
@@ -125,5 +136,15 @@ module.exports = {
         id
     `
     return pg.one(sql, [name, email, password, picture]);
-  }
+  },
+
+  // createComment({ user_id, book_id, comment }) {
+  //   const sql = `
+  //     INSERT INTO
+  //       comments (user_id, book_id, comment)
+  //     VALUES
+  //       ()
+  //
+  //   `
+  // }
 };
