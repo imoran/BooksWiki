@@ -5,21 +5,25 @@ const pg = require('pg-promise')()(connection);
 module.exports = {
   getAllBooks() {
     const sql = `
-	    SELECT b.id, b.title, b.description, a.name AS author, b.year, g.name AS genre
+    SELECT b.id, b.title, b.description,
+  		   a.name AS author, b.year, g.name AS genre,
+  		   b.img_url, r.rating
       FROM books AS b
       JOIN book_genre AS bg
         ON bg.book_id = b.id
       JOIN genres AS g
         ON bg.genre_id = g.id
       JOIN book_author AS ba
-     	ON b.id = ba.book_id
+      ON b.id = ba.book_id
       JOIN authors AS a
-      	ON a.id = ba.author_id;
+        ON a.id = ba.author_id
+      JOIN ratings AS r
+        ON b.id = r.book_id;
     `
     return pg.any(sql);
   },
 
-  createBook({ title, year, description, img_url }) {
+  createBook({title, year, description, img_url}) {
     const sql = `
       INSERT INTO
         books (title, year, description, img_url)
@@ -33,18 +37,24 @@ module.exports = {
 
   getBook(id) {
     const sql =  `
-    SELECT b.id, b.title, b.description, a.name AS author, b.year, g.name AS genre
-    FROM books AS b
-    JOIN book_genre AS bg
-      ON bg.book_id = b.id
-    JOIN genres AS g
-      ON bg.genre_id = g.id
-    JOIN book_author AS ba
-    ON b.id = ba.book_id
-    JOIN authors AS a
-      ON a.id = ba.author_id
-    WHERE
-      b.id = $1;
+    SELECT b.id, b.title, b.description,
+  		   a.name AS author, b.year, g.name AS genre,
+  		   b.img_url, r.rating, c.comment
+      FROM books AS b
+      JOIN book_genre AS bg
+        ON bg.book_id = b.id
+      JOIN genres AS g
+        ON bg.genre_id = g.id
+      JOIN book_author AS ba
+      ON b.id = ba.book_id
+      JOIN authors AS a
+        ON a.id = ba.author_id
+      JOIN ratings AS r
+        ON b.id = r.book_id
+      JOIN comments AS c
+        ON b.id = c.book_id
+      WHERE
+        b.id = $1;
     `
     return pg.one(sql, [id]);
   },

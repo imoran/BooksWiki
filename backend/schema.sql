@@ -106,11 +106,6 @@ Each is searching--Lyra for the meaning of Dark Matter, Will for his missing fat
   );
 
 
-
-
-
-
-
 DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
@@ -136,11 +131,6 @@ VALUES
   );
 
 
-
-
-
-
-
 DROP TABLE IF EXISTS genres;
 CREATE TABLE genres
 (
@@ -153,6 +143,7 @@ INSERT INTO
 VALUES
   ('fiction'), ('non fiction'), ('drama'), ('action');
 
+
 DROP TABLE IF EXISTS book_genre;
 CREATE TABLE book_genre
 (
@@ -164,12 +155,6 @@ INSERT INTO
   book_genre (book_id, genre_id)
 VALUES
   (1, 1), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
-
-
-
-
-
-
 
 
 DROP TABLE IF EXISTS authors;
@@ -196,3 +181,40 @@ INSERT INTO
   book_author (book_id, author_id)
 VALUES
   (1, 1), (2, 2), (3, 3), (4, 4), (5, 1), (6, 2), (7, 3), (8, 4), (9, 1), (10, 2);
+
+
+DROP TABLE IF EXISTS ratings;
+CREATE TABLE ratings
+(
+  rating INTEGER NOT NULL,
+  user_id INTEGER,
+  book_id INTEGER
+);
+
+INSERT INTO
+  ratings (rating, user_id, book_id)
+VALUES
+  (5, 1, 1), (4, 2, 2), (2, 1, 3), (1, 2, 4), (3, 1, 5), (5, 2, 6), (5, 1, 7), (2, 2, 8), (4, 2, 9), (5, 1, 10);
+
+
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments
+(
+  comment TEXT NOT NULL,
+  user_id INTEGER,
+  book_id INTEGER
+);
+
+INSERT INTO
+  comments (comment, user_id, book_id)
+VALUES
+  ('I remember reading this as a child, great book', 1, 1),
+  ('Great book, have read it more than 4 times', 2, 2),
+  ('Wasn''t my cup of tea', 1, 3),
+  ('I didn''t even read it', 2, 4),
+  ('Great title', 1, 5),
+  ('Not bad', 2, 6),
+  ('Wish it didn''t end, great read for sure', 1, 7),
+  ('Some parts were great; others, not so much', 2, 8),
+  ('Best that I''ve read recently', 2, 9),
+  ('Such a classic, need I say more?', 1, 10);
