@@ -189,6 +189,7 @@ VALUES
 DROP TABLE IF EXISTS ratings;
 CREATE TABLE ratings
 (
+  id SERIAL PRIMARY KEY,
   rating INTEGER NOT NULL,
   user_id INTEGER,
   book_id INTEGER
@@ -205,6 +206,7 @@ VALUES
 DROP TABLE IF EXISTS comments;
 CREATE TABLE comments
 (
+  id SERIAL PRIMARY KEY,
   comment TEXT NOT NULL,
   user_id INTEGER,
   book_id INTEGER

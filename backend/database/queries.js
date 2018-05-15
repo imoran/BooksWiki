@@ -38,7 +38,6 @@ class Queries {
 		const sql =  `
 			SELECT
 				b.id, b.title, b.description, b.year, b.img_url,
-				c.comment,
 				(
 					SELECT round(AVG(rating), 1)
 					FROM ratings
@@ -59,24 +58,20 @@ class Queries {
 						ON bg.book_id = b.id
 					WHERE
 						id = bg.genre_id
-				) AS genre
+				) AS genre,
+				(
+					SELECT json_object_agg(c.comment, json_build_object('name', u.name, 'picture', u.picture, 'id', u.id))
+					FROM comments AS c
+					JOIN users AS u
+						ON u.id = c.user_id
+					WHERE
+						c.book_id = b.id
+				) AS comment
 			FROM books AS b
-			JOIN comments AS c
-				ON b.id = c.book_id
 			WHERE
 				b.id = $1;
 		`
 		return this.db.one(sql, [id]);
-	}
-
-	deleteBook(id) {
-		const sql =  `
-			DELETE FROM
-				books
-			WHERE
-				id = $1
-		`
-		return this.db.none(sql, [id]);
 	}
 
 	getUser(id) {

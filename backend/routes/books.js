@@ -12,10 +12,10 @@ const books = {
   },
 
   create(req, res) {
+    const { author_id, genre_id } = req.body;
     actions.createBook(req.body)
-    .then(book => {
-      res.status = 200;
-      res.json(book);
+    .then(book_id => {
+
     })
     .catch(err => {
       console.log(err);
@@ -45,7 +45,7 @@ const books = {
   },
 
   delete(req, res) {
-    queries.deleteBook(req.params.id)
+    actions.deleteBook(req.params.id)
     .then(_ => {
       res.status = 200;
       res.redirect('/books');
