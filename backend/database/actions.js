@@ -1,3 +1,4 @@
+
 class Actions {
 	constructor(db, pgp) {
 		this.db = db;
@@ -142,7 +143,7 @@ class Actions {
 		return this.db.one(sql, [name, email, password, picture, id]);
 	}
 
-	createUser({ name, email, password, picture }) {
+	createUser({ name, email, picture }, hash) {
 		const sql = `
 			INSERT INTO
 				users (name, email, password, picture)
@@ -151,7 +152,7 @@ class Actions {
 			RETURNING
 				id
 		`
-		return this.db.one(sql, [name, email, password, picture]);
+		return this.db.one(sql, [name, email, hash, picture]);
 	}
 
 	createComment({comment, user_id, book_id}) {

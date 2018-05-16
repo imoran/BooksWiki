@@ -5,17 +5,17 @@ const users = require('./users');
 const comments = require('./comments');
 
 app.get('/books', books.getAll);
-app.post('/books', books.create);
 app.get('/books/:id', books.get);
-app.delete('/books/:id', books.delete);
+app.post('/books', books.create);
 app.patch('/books/:id', books.update);
+app.delete('/books/:id', books.delete);
 
 app.get('/users/:id', users.get);
-app.post('/users', users.create);
+app.post('/users/signin', users.signin);
+app.post('/users/signup', users.signup);
 app.patch('/users/:id', users.update);
 
 app.post('/comments', comments.create);
-// app.get('/comments/:id', comments.get);
 
 
 

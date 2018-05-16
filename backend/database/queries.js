@@ -86,6 +86,18 @@ class Queries {
 		return this.db.one(sql, [id]);
 	}
 
+	findUserByEmail(email) {
+		const sql = `
+			SELECT
+				*
+			FROM
+				users
+			WHERE
+				email = $1
+		`
+		return this.db.any(sql, [email]);
+	}
+
 };
 
 module.exports = Queries;
