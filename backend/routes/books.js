@@ -12,15 +12,54 @@ const books = {
   },
 
   create(req, res) {
-    const { author_id, genre_id } = req.body;
-    actions.createBook(req.body)
+    Promise.all([
+      actions.createBook(req.body),
+      actions.createGenre(req.body),
+      actions.createAuthor(req.body)
+    ])
+    .then(([book_id, genre_ids, author_ids]) => {
+      genre_ids.map(genre_id => {
+        actions.bookGenreAssociation(book_id.id, genre_id.id);
+      })
+      author_ids.map(author_id => {
+        actions.bookAuthorAssociation(book_id.id, author_id.id);
+      })
+      return book_id.id;
+    })
     .then(book_id => {
-
+      res.redirect(`/books/${book_id}`);
     })
     .catch(err => {
       console.log(err);
     })
   },
+
+// {
+//   "title": "wahted",
+//   "year": 1988,
+//   "description": "al;sdfaldh",
+//   "img_url": "www.lksjhf.com",
+//   "genre": [
+//     {
+//       "genre_id" : 1
+//     },
+//     {
+//       "genre" : "mystery"
+//     }
+//   ],
+//   "author": [
+//     {
+//       "author_id" : 1
+//     },
+//     {
+//       "author" : "Tony Robbins"
+//     }
+//   ]
+// }
+
+
+
+
 
   get(req, res) {
     queries.getBook(req.params.id)
