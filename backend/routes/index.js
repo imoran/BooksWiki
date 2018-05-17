@@ -7,7 +7,7 @@ const ratings = require('./ratings');
 const checkAuth = require('./middleware/check-auth');
 
 app.get('/books', books.getAll);
-app.get('/books/:id', checkAuth, books.get);
+app.get('/books/:id', books.get);
 app.post('/books', checkAuth, books.create);
 app.patch('/books/:id', checkAuth, books.update);
 app.delete('/books/:id', checkAuth, books.delete);

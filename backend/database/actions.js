@@ -20,7 +20,7 @@ class Actions {
 	createGenre({ genre }) {
 		const allGenreIds = genre.map(one => {
 			if (one['genre_id']) {
-				return one['genre_id']
+				return {id: one['genre_id']}
 			} else {
 				const sql = `
 					INSERT INTO genres (genre)
@@ -37,7 +37,7 @@ class Actions {
 	createAuthor({ author }) {
 		const allAuthorIds = author.map(one => {
 			if (one['author_id']) {
-				return one['author_id']
+				return {id: one['author_id']}
 			} else {
 				const sql = `
 					INSERT INTO authors (author)
