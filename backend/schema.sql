@@ -225,3 +225,15 @@ VALUES
   ('Some parts were great; others, not so much', 2, 8),
   ('Best that I''ve read recently', 2, 9),
   ('Such a classic, need I say more?', 1, 10);
+
+
+
+
+
+
+DROP TABLE IF EXISTS user_book;
+CREATE TABLE user_book
+(
+  user_id INTEGER,
+  book_id INTEGER
+);

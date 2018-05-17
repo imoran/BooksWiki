@@ -18,16 +18,18 @@ const books = {
       actions.createAuthor(req.body)
     ])
     .then(([book_id, genre_ids, author_ids]) => {
+      console.log("genre_ids => ", genre_ids);
       genre_ids.map(genre_id => {
         actions.bookGenreAssociation(book_id.id, genre_id.id);
       })
       author_ids.map(author_id => {
         actions.bookAuthorAssociation(book_id.id, author_id.id);
       })
+      actions.bookUserAssociation(book_id.id, req.userData.user_id)
       return book_id.id;
     })
     .then(book_id => {
-      res.redirect(`/books/${book_id}`);
+      res.status(200).json({ message: "book was successfully created!"})
     })
     .catch(err => {
       console.log(err);

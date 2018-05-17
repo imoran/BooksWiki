@@ -1,6 +1,6 @@
 const Actions = require('./actions');
 const Queries = require('./queries');
-const config = require('./config');
+const { dbConfig } = require('../config');
 const initOptions = {
   extend(obj, dc) {
     obj.actions = new Actions(obj, pgp);
@@ -8,6 +8,6 @@ const initOptions = {
   }
 };
 const pgp = require('pg-promise')(initOptions);
-const db = pgp(config);
+const db = pgp(dbConfig);
 
 module.exports = db;

@@ -23,12 +23,10 @@ class Actions {
 				return one['genre_id']
 			} else {
 				const sql = `
-					INSERT INTO
-						genres (genre)
-					VALUES
-						($1)
-					RETURNING
-						id
+					INSERT INTO genres (genre)
+					VALUES ($1)
+					ON CONFLICT (genre)
+					DO UPDATE SET genre=EXCLUDED.genre RETURNING id;
 				`
 				return this.db.one(sql, [one['genre']]);
 			}
@@ -42,12 +40,10 @@ class Actions {
 				return one['author_id']
 			} else {
 				const sql = `
-					INSERT INTO
-						authors (author)
-					VALUES
-						($1)
-					RETURNING
-						id
+					INSERT INTO authors (author)
+					VALUES ($1)
+					ON CONFLICT (author)
+					DO UPDATE SET author=EXCLUDED.author RETURNING id;
 				`
 				return this.db.one(sql, [one['author']]);
 			}
@@ -73,6 +69,16 @@ class Actions {
 				($1, $2);
 		`
 		return this.db.none(sql, [book_id, author_id]);
+	}
+
+	bookUserAssociation(book_id, user_id) {
+		const sql = `
+			INSERT INTO
+				user_book (book_id, user_id)
+			VALUES
+				($1, $2);
+		`
+		return this.db.none(sql, [book_id, user_id]);
 	}
 
 	// createBook({ title, year, description, img_url, author, genre }, id) {
@@ -165,6 +171,18 @@ class Actions {
 				id
 		`
 		return this.db.one(sql, [comment, user_id, book_id]);
+	}
+
+	createRating({rating, user_id, book_id}) {
+		const sql = `
+			INSERT INTO
+				ratings (rating, user_id, book_id)
+			VALUES
+				($1, $2, $3)
+			RETURNING
+				id
+		`
+		return this.db.one(sql, [rating, user_id, book_id]);
 	}
 
 };

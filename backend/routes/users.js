@@ -1,5 +1,7 @@
 const { queries, actions } = require('../database');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { jwtSecret } = require('../config');
 
 const users = {
   get(req, res) {
@@ -52,7 +54,14 @@ const users = {
         bcrypt.compare(req.body.password, user[0].password)
         .then((result) => {
           if (result) {
-            res.json({ success: "You have successfully signed in!" });
+            const token = jwt.sign(
+              { 'email': user[0].email, 'user_id': user[0].id },
+                jwtSecret,
+              { expiresIn: "7d" } );
+            res.json({
+              token,
+              success: "You have successfully signed in!"
+            });
           } else {
             res.json({ error: "Wrong email/password combination" });
           }
