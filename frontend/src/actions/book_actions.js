@@ -7,11 +7,7 @@ export const receiveAllBooks = books => ({
 	books
 });
 
-export const requestAllBooks = () => dispatch => {
-	console.log("asdgfa");
-	return booksAPI.getAllBooks()
-	.then(books => {
-		console.log("books => ", books);
-		dispatch(receiveAllBooks(books))
-	});
-};
+export const requestAllBooks = () => dispatch => (
+	booksAPI.getAllBooks()
+	.then(books => { dispatch(receiveAllBooks(books)) })
+);
