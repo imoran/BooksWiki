@@ -1,33 +1,21 @@
 import React from 'react'
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { requestAllBooks } from '../../actions/book_actions';
-import Header from './header';
+import Header from './Header';
+import Main from './Main';
 
 
 class Homepage extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	componentWillMount() {
-		this.props.requestAllBooks();
-	}
 	render() {
 		return (
 			<div>
 				<Header />
+				<Main />
 			</div>
 		);
 	}
 }
 
-
-const mapStateToProps = (state) => ({
-	books: state.entities.books
-});
-
-const mapDispatchToProps = dispatch => ({
-	requestAllBooks: () => dispatch(requestAllBooks())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default Homepage;
