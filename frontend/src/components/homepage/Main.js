@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Books from './Books';
+import SearchBar from './SearchBar';
+import BookShelf from './BookShelf';
 
 class Main extends React.Component {
 	constructor(props) {
@@ -9,17 +11,18 @@ class Main extends React.Component {
 	render() {
 		return (
 			<Div>
+				<SearchBar />
 				<Books />
+				<BookShelf />
 			</Div>
 		);
 	}
 }
 
 const Div = styled.div`
-	color: white;
-	font-size: 70px;
+	width: 100%;
 	display: flex;
-	justify-content: center;
+	flex-direction: row;
 `;
 
 export default Main;

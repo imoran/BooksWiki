@@ -3,8 +3,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const path = require('path');
 
 const routes = require('./routes');
+
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 // Add headers
 app.use(function (req, res, next) {

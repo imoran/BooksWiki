@@ -1,39 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { requestAllBooks } from '../../actions/book_actions';
+import { selectAllBooks } from '../../selectors/selectors';
 import styled from 'styled-components';
 import Book from './Book';
 
 class Books extends React.Component {
-	componentWillMount() {
-		this.props.requestAllBooks()
-	}
 	constructor(props) {
 		super(props);
-		// this.state = {
-		// 	books: props
-		// }
-		console.log(props);
 	}
+
+	componentWillMount() {
+		this.props.requestAllBooks();
+	}
+
 	render() {
+		const { books } = this.props;
 		return (
 			<Div>
-
+				{books.map(book => (
+					<Book book={book} key={book.id} />
+				))}
 			</Div>
 		);
 	}
 }
 
 const Div = styled.div`
-	color: white;
-	font-size: 70px;
 	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: center;
+	width: 65%;
 `;
 
 
 const mapStateToProps = (state) => ({
-	books: state.entities.books
+	books: selectAllBooks(state)
 });
 
 const mapDispatchToProps = dispatch => ({
