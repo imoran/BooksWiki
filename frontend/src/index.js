@@ -1,8 +1,14 @@
 import React from 'react'
-import { render } from 'react-dom'
-import App from './App';
+import ReactDOM from 'react-dom'
+import Root from './Root';
+import configureStore from './store/store';
+const $ = require('jquery');
 
-render(
-  <App />,
-  document.querySelector('main')
-);
+document.addEventListener('DOMContentLoaded', () => {
+	let store;
+	store = configureStore();
+	const main = document.querySelector('main');
+	window.$ = $;
+	window.store = store;
+	ReactDOM.render(<Root store={store} />, main);
+})

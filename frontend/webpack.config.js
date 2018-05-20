@@ -1,7 +1,11 @@
+const webpack = require('webpack');
+const jquery = require('jquery');
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, "src");
+
 
 module.exports = {
   entry: SRC_DIR + '/index.js',
@@ -37,6 +41,10 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true
       }
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     })
   ]
 };

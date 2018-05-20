@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { requestAllBooks } from '../../actions/book_actions';
 
 const Button = styled.button`
   border-radius: 3px;
@@ -11,6 +13,16 @@ const Button = styled.button`
 `;
 
 class Homepage extends React.Component {
+	constructor(props) {
+		super(props);
+		console.log("props => ", props);
+		console.log("this.state => ", this.state);
+	}
+
+	componentWillMount() {
+		this.props.requestAllBooks();
+	}
+
 	render() {
 		return (
 			<div>
@@ -20,5 +32,12 @@ class Homepage extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+	books: state.entities.books
+});
 
-export default Homepage;
+const mapDispatchToProps = dispatch => ({
+	requestAllBooks: () => dispatch(requestAllBooks())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
