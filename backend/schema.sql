@@ -113,7 +113,7 @@ CREATE TABLE users
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  picture VARCHAR(255)
+  img_url VARCHAR(255)
 );
 
 INSERT INTO
@@ -228,11 +228,17 @@ VALUES
 
 
 
-
-
-
 DROP TABLE IF EXISTS user_book;
 CREATE TABLE user_book
+(
+  user_id INTEGER,
+  book_id INTEGER
+);
+
+
+
+DROP TABLE IF EXISTS user_favorite_book;
+CREATE TABLE user_favorite_book
 (
   user_id INTEGER,
   book_id INTEGER

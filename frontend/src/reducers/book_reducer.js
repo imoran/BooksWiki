@@ -1,10 +1,16 @@
-import { RECEIVE_ALL_BOOKS } from '../actions/book_actions';
+import merge from 'lodash/merge';
+import omit from 'lodash/omit';
+import { RECEIVE_ALL_BOOKS,
+         RECEIVE_SELECT_BOOKS} from '../actions/book_actions';
 
 const bookReducer = (state = {}, action) => {
 	Object.freeze(state);
 	switch (action.type) {
 		case RECEIVE_ALL_BOOKS:
-			return Object.assign({}, state, action.books);
+			return merge({}, state, action.books);
+		case RECEIVE_SELECT_BOOKS:
+			console.log("state => ", state);
+			return action.books;
 		default:
 			return state;
 	}

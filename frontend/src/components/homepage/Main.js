@@ -20,7 +20,7 @@ class Main extends React.Component {
 }
 
 const Div = styled.div`
-	width: 100%;
+	margin: 20px;
 	display: flex;
 	flex-direction: row;
 `;

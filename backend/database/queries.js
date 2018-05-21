@@ -98,6 +98,19 @@ class Queries {
 		return this.db.any(sql, [email]);
 	}
 
+	getTitle(title) {
+		console.log("title => ", title);
+		const sql = `
+			SELECT
+				*
+			FROM
+				books
+			WHERE
+				title = $1
+		`
+		return this.db.any(sql, [title]);
+	}
+
 };
 
 module.exports = Queries;

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express.Router();
 const books = require('./books');
+const search = require('./search');
 const users = require('./users');
 const comments = require('./comments');
 const ratings = require('./ratings');
@@ -21,6 +22,7 @@ app.post('/comments', checkAuth, comments.create);
 
 app.post('/ratings', checkAuth, ratings.create);
 
+app.get('/search', search.searchAll);
 
 
 module.exports = app;

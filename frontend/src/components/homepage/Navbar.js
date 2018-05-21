@@ -59,4 +59,5 @@ const Img = styled.img.attrs({
 	height: 60px;
 	margin: .5rem;
 `;
+
 export default Navbar;
