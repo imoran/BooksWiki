@@ -141,11 +141,30 @@ class Queries {
 		console.log("author => ", author);
 		const sql = `
 			SELECT
-				*
-			FROM
-				books
-			WHERE
-				author = $1
+				b.id, b.title, b.description, b.year, b.img_url,
+				(
+					SELECT round(AVG(rating), 1)
+					FROM ratings
+					WHERE b.id = book_id
+				) AS rating,
+				(
+					SELECT json_object_agg(id, author)
+					FROM authors
+					JOIN book_author AS ba
+						ON ba.book_id = b.id
+					WHERE
+						id = ba.author_id
+				) AS author,
+				(
+					SELECT json_object_agg(id, genre)
+					FROM genres
+					JOIN book_genre AS bg
+						ON bg.book_id = b.id
+					WHERE
+						id = bg.genre_id
+				) AS genre
+			FROM books AS b
+			WHERE author.author = $1
 		`
 		return this.db.any(sql, [author]);
 	}

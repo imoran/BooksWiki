@@ -1,18 +1,20 @@
-import React from 'react'
+import React from 'react';
 import styled, { css } from 'styled-components';
-
+import Modal from './signin/modal';
 
 class Navbar extends React.Component {
 	constructor(props) {
 		super(props);
+		console.log("Navbar props => ", this.props);
 	}
 	render() {
 		return (
 			<Nav>
+				<Modal />
 				<Img />
 				<Div>
 					<Button primary>Demo User</Button>
-					<Button>Login</Button>
+					<Button onClick={() => this.props.openModal('login')} >Login</Button>
 					<Button>Signup</Button>
 				</Div>
 			</Nav>
@@ -60,4 +62,13 @@ const Img = styled.img.attrs({
 	margin: .5rem;
 `;
 
-export default Navbar;
+
+import { connect } from 'react-redux';
+import { openModal } from '../../actions/modal_actions';
+
+
+const mapDispatchToProps = dispatch => ({
+	openModal: modal => dispatch(openModal(modal))
+});
+
+export default connect(null, mapDispatchToProps)(Navbar);
