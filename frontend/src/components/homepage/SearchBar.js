@@ -9,38 +9,72 @@ class SearchBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			'title': ''
+			Title: ''
 		};
-		this.handleChange = this.handleChange.bind(this);
+		this.search = 'Title';
+		this.inputChange = this.inputChange.bind(this);
+		this.selectChange = this.selectChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	handleSubmit() {
-		this.props.requestSelectedBooks(this.state)
+		const queryObject = {[this.search]: this.state[this.search]};
+		this.props.requestSelectedBooks(queryObject);
+		console.log("handleSubmit state => " , this.state);
+		console.log("queryObject => " , queryObject);
 	}
 
-	handleChange(e) {
-		this.setState({ title: e.target.value });
+	inputChange(e) {
+		this.setState({ [this.search]: e.target.value });
+	}
+
+	selectChange(e) {
+		this.search = e.target.value;
+		this.setState({ [this.search]: ''})
+		console.log(this.search);
 	}
 
 	render() {
+		console.log("render State => ", this.state);
 		return (
 			<Div>
 				<Span>Search</Span>
 				<InputGroup>
 					<Input
-						placeholder="Search By Title"
-						value={this.state.title}
-						onChange={this.handleChange}
+						placeholder={`Search By ${this.search}`}
+						value={this.state[this.search]}
+						onChange={this.inputChange}
 						/>
 					<Magnify
 						onClick={this.handleSubmit}
 					/>
 				</InputGroup>
+				<Select onChange={this.selectChange} >
+					<Option>Title</Option>
+					<Option>Author</Option>
+					<Option>Genre</Option>
+					<Option>Year</Option>
+				</Select>
 			</Div>
 		);
 	}
 }
+
+const Select = styled.select`
+	height: 34px;
+	border: 1px solid #AAA;
+	border-radius: 2px;
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+	color: #555;
+	font-size: 16px;
+	margin: 10px 0;
+	min-width: 100px;
+	max-width: 185px;
+`;
+
+const Option = styled.option`
+
+`;
 
 const Magnify = styled.img.attrs({
 	src: "http://localhost:3000/public/images/search.png"
@@ -78,8 +112,10 @@ const Div = styled.div`
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
+	height: 200px;
+	position: sticky;
+	top: 5px;
 `;
-
 
 
 const mapStateToProps = (state) => ({

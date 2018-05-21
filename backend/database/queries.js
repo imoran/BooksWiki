@@ -111,6 +111,48 @@ class Queries {
 		return this.db.any(sql, [title]);
 	}
 
+	getYears(year) {
+		console.log("year => ", year);
+		const sql = `
+			SELECT
+				*
+			FROM
+				books
+			WHERE
+				year = $1
+		`
+		return this.db.any(sql, [year]);
+	}
+
+	getGenre(genre) {
+		console.log("genre => ", genre);
+		const sql = `
+			SELECT
+				*
+			FROM
+				books
+			WHERE
+				genre = $1
+		`
+		return this.db.any(sql, [genre]);
+	}
+
+	getAuthor(author) {
+		console.log("author => ", author);
+		const sql = `
+			SELECT
+				*
+			FROM
+				books
+			WHERE
+				author = $1
+		`
+		return this.db.any(sql, [author]);
+	}
+
 };
+
+
+
 
 module.exports = Queries;
