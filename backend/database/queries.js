@@ -60,7 +60,7 @@ class Queries {
 						id = bg.genre_id
 				) AS genre,
 				(
-					SELECT json_object_agg(c.comment, json_build_object('name', u.name, 'img_url', u.img_url, 'id', u.id))
+					SELECT json_object_agg(c.comment, json_build_object('name', u.name, 'img_url', b.img_url, 'id', u.id))
 					FROM comments AS c
 					JOIN users AS u
 						ON u.id = c.user_id
@@ -73,7 +73,7 @@ class Queries {
 		`
 		return this.db.one(sql, [id]);
 	}
-	
+
 	getUser(id) {
 		const sql = `
 			SELECT
