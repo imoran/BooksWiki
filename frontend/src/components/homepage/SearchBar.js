@@ -82,6 +82,9 @@ const Magnify = styled.img.attrs({
 	width: 30px;
 	height: 30px;
 	padding: 5px 5px 5px 10px;
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 const InputGroup = styled.div`

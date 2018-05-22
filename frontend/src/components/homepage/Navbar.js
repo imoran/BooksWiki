@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Modal from './auth/modal';
+import { connect } from 'react-redux';
+import { openModal } from '../../actions/modal_actions';
 
 class Navbar extends React.Component {
 	constructor(props) {
@@ -61,10 +63,6 @@ const Img = styled.img.attrs({
 	height: 60px;
 	margin: .5rem;
 `;
-
-
-import { connect } from 'react-redux';
-import { openModal } from '../../actions/modal_actions';
 
 
 const mapDispatchToProps = dispatch => ({

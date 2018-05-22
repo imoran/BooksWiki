@@ -73,7 +73,7 @@ class Queries {
 		`
 		return this.db.one(sql, [id]);
 	}
-
+	
 	getUser(id) {
 		const sql = `
 			SELECT

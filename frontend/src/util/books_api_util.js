@@ -10,6 +10,13 @@ export default {
 		});
 	},
 
+	getOneBook(id) {
+		return $.ajax({
+			url: `${baseUrl}/books/${id}`,
+			method: 'GET'
+		});
+	},
+
 	getSearch(data) {
 		const stringify = JSON.stringify(data);
 		const url = `${baseUrl}/search/?&q=${stringify}`;
@@ -18,5 +25,4 @@ export default {
 			method: 'GET'
 		});
 	}
-
 };

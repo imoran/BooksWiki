@@ -1,6 +1,7 @@
 import merge from 'lodash/merge';
 import { RECEIVE_ALL_BOOKS,
-				 RECEIVE_SELECT_BOOKS } from '../actions/book_actions';
+				 RECEIVE_SELECT_BOOKS,
+				 RECEIVE_SINGLE_BOOK } from '../actions/book_actions';
 
 const bookReducer = (state = {}, action) => {
 	Object.freeze(state);
@@ -10,6 +11,10 @@ const bookReducer = (state = {}, action) => {
 		case RECEIVE_SELECT_BOOKS:
 			console.log("state => ", state);
 			return action.books;
+		case RECEIVE_SINGLE_BOOK:
+			const book = action.book
+			console.log("BOOK", book);
+			return merge({}, state, newBook);
 		default:
 			return state;
 	}
