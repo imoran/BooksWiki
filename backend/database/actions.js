@@ -81,33 +81,7 @@ class Actions {
 		return this.db.none(sql, [book_id, user_id]);
 	}
 
-	// createBook({ title, year, description, img_url, author, genre }, id) {
-	// 	const sql = `
-	// 		BEGIN TRANSACTION;
-	// 			INSERT INTO authors (author)
-	// 			VALUES ($5) ON CONFLICT (author) DO NOTHING;
-	//
-	// 			INSERT INTO genres (genre)
-	// 			VALUES ($6) ON CONFLICT (genre) DO NOTHING;
-	//
-	// 			INSERT INTO
-	// 				books (title, year, description, img_url)
-	// 			VALUES
-	// 				($1, $2, $3, $4);
-	//
-	// 			INSERT INTO
-	// 				book_author (author_id, book_id)
-	// 			VALUES
-	// 				((SELECT id FROM authors WHERE author = $5), $7);
-	//
-	// 			INSERT INTO
-	// 				book_genre (genre_id, book_id)
-	// 			VALUES
-	// 				((SELECT id FROM genres WHERE genre = $6), $7);
-	// 		END TRANSACTION;
-	// 	`
-	// 	return this.db.one(sql, [title, year, description, img_url, author, genre, id]);
-	// }
+
 
 	updateBook({ title, year, description, img_url }, id) {
 		const sql = `
@@ -134,31 +108,31 @@ class Actions {
 		return this.db.none(sql, [id]);
 	}
 
-	updateUser({ name, email, password, picture }, id) {
+	updateUser({ name, email, password, img_url }, id) {
 		const sql = `
 			UPDATE
 				users
 			SET
 				name = $1, email = $2,
-				password = $3, picture = $4
+				password = $3, img_url = $4
 			WHERE
 				id = $5
 			RETURNING
 				id
 		`
-		return this.db.one(sql, [name, email, password, picture, id]);
+		return this.db.one(sql, [name, email, password, img_url, id]);
 	}
 
-	createUser({ name, email, picture }, hash) {
+	createUser({ name, email, img_url }, hash) {
 		const sql = `
 			INSERT INTO
-				users (name, email, password, picture)
+				users (name, email, password, img_url)
 			VALUES
 				($1, $2, $3, $4)
 			RETURNING
-				id
+				id, email
 		`
-		return this.db.one(sql, [name, email, hash, picture]);
+		return this.db.one(sql, [name, email, hash, img_url]);
 	}
 
 	createComment({comment, user_id, book_id}) {
@@ -188,3 +162,37 @@ class Actions {
 };
 
 module.exports = Actions;
+
+
+
+
+
+
+
+// createBook({ title, year, description, img_url, author, genre }, id) {
+// 	const sql = `
+// 		BEGIN TRANSACTION;
+// 			INSERT INTO authors (author)
+// 			VALUES ($5) ON CONFLICT (author) DO NOTHING;
+//
+// 			INSERT INTO genres (genre)
+// 			VALUES ($6) ON CONFLICT (genre) DO NOTHING;
+//
+// 			INSERT INTO
+// 				books (title, year, description, img_url)
+// 			VALUES
+// 				($1, $2, $3, $4);
+//
+// 			INSERT INTO
+// 				book_author (author_id, book_id)
+// 			VALUES
+// 				((SELECT id FROM authors WHERE author = $5), $7);
+//
+// 			INSERT INTO
+// 				book_genre (genre_id, book_id)
+// 			VALUES
+// 				((SELECT id FROM genres WHERE genre = $6), $7);
+// 		END TRANSACTION;
+// 	`
+// 	return this.db.one(sql, [title, year, description, img_url, author, genre, id]);
+// }

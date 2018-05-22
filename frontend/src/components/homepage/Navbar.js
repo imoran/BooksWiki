@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Modal from './signin/modal';
+import Modal from './auth/modal';
 
 class Navbar extends React.Component {
 	constructor(props) {
@@ -15,7 +15,7 @@ class Navbar extends React.Component {
 				<Div>
 					<Button primary>Demo User</Button>
 					<Button onClick={() => this.props.openModal('login')} >Login</Button>
-					<Button>Signup</Button>
+					<Button onClick={() => this.props.openModal('signup')} >Sign up</Button>
 				</Div>
 			</Nav>
 		);

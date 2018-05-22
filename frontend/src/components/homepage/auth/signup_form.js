@@ -1,15 +1,16 @@
 import { connect } from 'react-redux';
+import { signup } from '../../../actions/auth_actions';
 import React from 'react';
 import { openModal, closeModal } from '../../../actions/modal_actions';
 import { withRouter } from 'react-router-dom';
 import merge from 'lodash/merge';
 import styled from 'styled-components';
 
-class SigninForm extends React.Component {
+class SignupForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: '',
+			email: '',
 			password: ''
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,8 +24,9 @@ class SigninForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const user = merge({}, this.state);
-		this.props.closeModal()
+		console.log("SignupForm ", this.props);
+		this.props.signup(this.state)
+		.then(() => this.props.closeModal());
 	}
 
 	render() {
@@ -32,14 +34,14 @@ class SigninForm extends React.Component {
 			<div>
 				<ModalForm onSubmit={this.handleSubmit}>
 					<br />
-					<OuterSignin>
-						<SigninFormC>
-							<H2>Sign in</H2>
+					<OuterSignup>
+						<SignupFormC>
+							<H2>Sign up</H2>
 							<Input
 								type="text"
-								value={this.state.username}
-								onChange={this.update('username')}
-								placeholder="Your username"
+								value={this.state.email}
+								onChange={this.update('email')}
+								placeholder="Your email"
 								/>
 							<br />
 							<Input
@@ -50,9 +52,9 @@ class SigninForm extends React.Component {
 								/>
 							<br />
 							<Button>Let's go!</Button>
-						</SigninFormC>
+						</SignupFormC>
 						<br />
-				</OuterSignin>
+				</OuterSignup>
 				</ModalForm>
 			</div>
 		);
@@ -88,14 +90,14 @@ const Input = styled.input`
 const H2 = styled.h2`
 	margin: 15px 0;
 `;
-const SigninFormC = styled.div`
+const SignupFormC = styled.div`
 	width: 200px;
 	height: 250px;
 	text-align: center;
 	margin: 0 auto;
 `;
 
-const OuterSignin = styled.div`
+const OuterSignup = styled.div`
 	border-radius: 10px;
 	width: 200px;
 	height: 250px;
@@ -113,10 +115,13 @@ const ModalForm = styled.form`
 	align-content: center;
 `;
 
-
+const mapStateToProps = state => ({
+	currentUser: state.auth.currentUser
+});
 
 const mapDispatchToProps = dispatch => ({
+	signup: (user) => dispatch(signup(user)),
 	closeModal: () => dispatch(closeModal())
 });
 
-export default connect(null, mapDispatchToProps)(SigninForm);
+export default connect(null, mapDispatchToProps)(SignupForm);

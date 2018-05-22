@@ -1,7 +1,6 @@
 import merge from 'lodash/merge';
-import omit from 'lodash/omit';
 import { RECEIVE_ALL_BOOKS,
-         RECEIVE_SELECT_BOOKS} from '../actions/book_actions';
+				 RECEIVE_SELECT_BOOKS } from '../actions/book_actions';
 
 const bookReducer = (state = {}, action) => {
 	Object.freeze(state);

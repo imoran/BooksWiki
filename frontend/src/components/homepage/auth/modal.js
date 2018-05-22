@@ -2,6 +2,7 @@ import React from 'react';
 import { closeModal } from '../../../actions/modal_actions';
 import { connect } from 'react-redux';
 import SigninForm from './signin_form';
+import SignupForm from './signup_form';
 import styled from 'styled-components';
 
 function Modal({modal, closeModal}) {
@@ -13,6 +14,9 @@ function Modal({modal, closeModal}) {
 	switch (modal) {
 		case 'login':
 			component = <SigninForm />;
+			break;
+		case 'signup':
+			component = <SignupForm />;
 			break;
 		default:
 			return null;
