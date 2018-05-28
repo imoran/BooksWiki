@@ -1,19 +1,20 @@
-import merge from 'lodash/merge';
 import { RECEIVE_CURRENT_USER } from '../actions/auth_actions';
 
-const _nullUser = Object.freeze({
-	currentUser: null
-});
-
-const authReducer = (state = _nullUser, action) => {
+const authReducer = (state = null, action) => {
 	Object.freeze(state);
 	switch (action.type) {
 		case RECEIVE_CURRENT_USER:
-			const currentUser = action.user;
-			return merge({}, state, { currentUser });
+			return action.user ? action.user : null
 		default:
-			return state;
+			return getCurrentUser();
 	}
 };
+
+function getCurrentUser() {
+	const storage = window.localStorage;
+	const currentUser = storage.getItem('currentUser');
+	return currentUser == null ? null : JSON.parse(currentUser);
+}
+
 
 export default authReducer;
