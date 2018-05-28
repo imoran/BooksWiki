@@ -12,9 +12,7 @@ const bookReducer = (state = {}, action) => {
 			console.log("state => ", state);
 			return action.books;
 		case RECEIVE_SINGLE_BOOK:
-			const book = action.book
-			console.log("BOOK", book);
-			return merge({}, state, newBook);
+			return action.book;
 		default:
 			return state;
 	}

@@ -9,17 +9,16 @@ class CreatedBooks extends React.Component {
 	render() {
 		return (
 			<Div>
+				CreatedBooks
 			</Div>
 		);
 	}
 }
 
 const Div = styled.div`
-	margin: 20px;
-	display: flex;
-	flex-direction: row;
+	width: 20%;
+	height: 500px;
 	background-color: red;
 `;
-
 
 export default CreatedBooks;

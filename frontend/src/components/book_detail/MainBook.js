@@ -1,25 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { requestSingleBook } from '../../actions/book_actions';
+
 
 class MainBook extends React.Component {
 	constructor(props) {
 		super(props);
 	}
 
+	componentWillMount() {
+		this.props.requestSingleBook(this.props.id);
+	}
+
 	render() {
 		return (
 			<Div>
+				{this.props.book.title}
 			</Div>
 		);
 	}
 }
 
 const Div = styled.div`
-	margin: 20px;
-	display: flex;
-	flex-direction: row;
+	width: 60%;
+	height: 500px;
 	background-color: blue;
 `;
 
+const mapStateToProps = (state, ownProps) => ({
+	book: state.entities.books
+});
 
-export default MainBook;
+const mapDispatchToProps = (id) => dispatch => ({
+	requestSingleBook: (id) => dispatch(requestSingleBook(id))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainBook);
+// export default MainBook;

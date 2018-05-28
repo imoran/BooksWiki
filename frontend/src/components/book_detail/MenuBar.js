@@ -9,15 +9,15 @@ class MenuBar extends React.Component {
 	render() {
 		return (
 			<Div>
+				MenuBar
 			</Div>
 		);
 	}
 }
 
 const Div = styled.div`
-	margin: 20px;
-	display: flex;
-	flex-direction: row;
+	width: 20%;
+	height: 500px;
 	background-color: pink;
 `;
 

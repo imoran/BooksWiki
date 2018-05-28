@@ -9,8 +9,29 @@ export const receiveCurrentUser = user => ({
 
 export const signup = user => dispatch => (
 	authAPI.signup(user)
-	.then(user => {
-		console.log("auth_action => ", user);
-		dispatch(receiveCurrentUser(user))
+	.then(result => {
+		saveTokenUser(result)
+		dispatch(receiveCurrentUser(result.user))
 	})
 );
+
+export const signin = user => dispatch => (
+	authAPI.signin(user)
+	.then(result => {
+		console.log("result signin => ", result);
+		saveTokenUser(result)
+		dispatch(receiveCurrentUser(result.user))
+	})
+);
+
+function saveTokenUser(result) {
+	let { token, user } = result;
+	const storage = window.localStorage;
+	if (token) {
+		storage.setItem('token', token);
+	}
+	if (user) {
+		user = JSON.stringify(user);
+		storage.setItem('currentUser', user);
+	}
+}

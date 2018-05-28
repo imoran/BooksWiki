@@ -26,7 +26,8 @@ export const requestAllBooks = () => dispatch => (
 
 export const requestSingleBook = (id) => dispatch => (
 	booksAPI.getOneBook(id)
-	.then(book => { dispatch(receiveSingleBook(book)) })
+	.then(book => { dispatch(receiveSingleBook(book))
+	})
 );
 
 export const requestSelectedBooks = (data) => dispatch => (

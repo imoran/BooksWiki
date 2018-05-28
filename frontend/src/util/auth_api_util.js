@@ -9,6 +9,13 @@ export default {
 			method: 'POST',
 			data
 		});
-	}
+	},
 
+	signin(data) {
+		return $.ajax({
+			url: `${baseUrl}/users/signin`,
+			method: 'POST',
+			data
+		});
+	}
 };
